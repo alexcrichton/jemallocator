@@ -234,6 +234,10 @@ fn main() {
     .env("CPPFLAGS", cflags.clone())
     .arg("--disable-cxx");
 
+    if env::var("JEMALLOC_SYS_DISABLE_SHARED").is_ok() {
+        cmd.arg("--disable-shared");
+    }
+
     if target.contains("ios") {
         // newer iOS deviced have 16kb page sizes:
         // closed: https://github.com/gnzlbg/jemallocator/issues/68
